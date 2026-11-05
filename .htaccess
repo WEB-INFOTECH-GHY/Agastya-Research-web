@@ -1,0 +1,15 @@
+RewriteEngine On
+
+# /about  ->  about.php   (any real .php page works without the extension)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([a-z0-9-]+)$ $1.php [L]
+
+# Remove trailing slash so relative css/images paths keep working
+RewriteRule ^([a-z0-9-]+)/$ $1 [R=301,L]
+
+# /pantawell  ->  product-detail.php?slug=pantawell
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-z0-9-]+)$ product-detail.php?slug=$1 [L,QSA]
