@@ -52,6 +52,7 @@ include 'include/header.php';
                 <div class="col-lg-12">
                     <div class="page-header-box">
                         <h1 class="text-anime-style-3" data-cursor="-opaque"><?php echo htmlspecialchars($p['name']); ?></h1>
+                        
                     </div>
                 </div>
             </div>
@@ -127,6 +128,20 @@ include 'include/header.php';
                         <div class="case-study-entry">
                             <p class="wow fadeInUp"><?php echo htmlspecialchars($p['summary']); ?></p>
                             <p class="wow fadeInUp" data-wow-delay="0.2s"><strong>Composition:</strong> <?php echo htmlspecialchars($p['comp']); ?></p>
+
+                            <?php if (!empty($p['benefits'])): ?>
+                            <!-- Key Benefits -->
+                            <div class="case-study-result">
+                                <h2 class="text-anime-style-3" data-cursor="-opaque">How it helps</h2>
+                                <div class="case-study-result-content wow fadeInUp" data-wow-delay="0.2s">
+                                    <ul>
+                                        <?php foreach ($p['benefits'] as $b): ?>
+                                            <li><?php echo htmlspecialchars($b); ?></li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            </div>
+                            <?php endif; ?>
 
                             <!-- Used For -->
                             <div class="case-study-result">
