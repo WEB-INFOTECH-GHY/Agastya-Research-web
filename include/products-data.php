@@ -18,6 +18,18 @@
    Optional: seo_title, seo_desc, hidden => true (keep off the site)
 ================================================================== */
 
+/* ---------- Site URL (used for canonical, Open Graph and schema) ----------
+   Live site: always the one official address (set $live_url once).
+   Local testing (localhost / 127.0.0.1): detected automatically.        */
+$live_url = 'https://www.YOURDOMAIN.com/';   // <-- CHANGE THIS to your real domain (keep the trailing slash)
+
+$host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
+if (strpos($host, 'localhost') !== false || strpos($host, '127.0.0.1') !== false) {
+    $site_url = 'http://' . $host . '/';
+} else {
+    $site_url = $live_url;
+}
+
 $divisions = [
     'main' => [
         'title' => 'Main Division',
@@ -38,7 +50,7 @@ $products = [
     /* ===================== MAIN DIVISION ===================== */
     ['id'=>'usilo-d','name'=>'Usilo D','div'=>'main','cat'=>'Urology','form'=>'Tablets',
      'comp'=>'Silodosin + Dutasteride',
-     'image'=>'',
+     'image'=>'web/product/new2/USILO D.jpg',
      'summary'=>'Used to treat benign prostatic hyperplasia (BPH), also known as an enlarged prostate.',
      'benefits'=>['Silodosin helps relax the muscles in the prostate and bladder, making it easier to urinate','Dutasteride works by shrinking the enlarged prostate over time, which also improves urine flow and reduces symptoms'],
      'uses'=>['Benign Prostatic Hyperplasia (BPH): the prostate gland is enlarged, but not cancerous','Trouble starting to urinate','Weak urine flow','Feeling that you still need to urinate after going','Needing to urinate very often, especially at night']],
@@ -57,14 +69,16 @@ $products = [
      'benefits'=>['Curcumin: the active ingredient in turmeric, known for its anti-inflammatory, antioxidant and healing properties','Piperine: an extract from black pepper that increases the absorption of curcumin in the body','Anti-inflammatory effects: helps reduce joint inflammation in conditions like osteoarthritis, rheumatoid arthritis and sports injuries','Antioxidant protection: fights free radicals and supports cell repair','Immunity support: enhances the body’s defense system','Brain and mental health: may improve memory, reduce brain fog and support mood','Digestive health: supports healthy liver function and helps relieve bloating, gas and mild indigestion','Heart and metabolic health: may help support healthy cholesterol, blood pressure and blood sugar levels'],
      'uses'=>['Arthritis (osteoarthritis and rheumatoid arthritis)','Liver conditions (fatty liver, mild hepatitis)','Inflammatory bowel conditions (colitis)','Skin conditions such as eczema and psoriasis','Chronic infections or low immunity','Age-related conditions','General wellness: better mobility, mental clarity and immunity']],
 
-    ['id'=>'pantawell','name'=>'Pantawell','div'=>'main','cat'=>'Gastro & Liver Care','form'=>'Tablets',
+    // HIDDEN per client: only Pantawell D is shown. (No image for this product.)
+    ['id'=>'pantawell','hidden'=>true,'name'=>'Pantawell','div'=>'main','cat'=>'Gastro & Liver Care','form'=>'Tablets',
      'comp'=>'Pantoprazole',
      'image'=>'',
      'summary'=>'A proton pump inhibitor (PPI) that reduces the amount of acid the stomach makes.',
      'benefits'=>['Pantoprazole is a proton pump inhibitor (PPI) that reduces the amount of acid your stomach makes','Commonly used to treat acid-related disorders'],
      'uses'=>['Gastroesophageal Reflux Disease (GERD): acid flows backward into the food pipe, causing heartburn and irritation','Peptic ulcer disease: gastric (stomach) and duodenal ulcers','Erosive esophagitis: inflammation and damage to the food pipe caused by acid','Zollinger-Ellison syndrome: a rare condition with excess stomach acid','Burning chest pain (heartburn)','Sour burps and nausea due to acid','Stomach discomfort after eating spicy or oily food']],
 
-    ['id'=>'pantawell-iv','name'=>'Pantawell IV','div'=>'main','cat'=>'Gastro & Liver Care','form'=>'Injection',
+    // HIDDEN per client: only Pantawell D is shown. (No image for this product.)
+    ['id'=>'pantawell-iv','hidden'=>true,'name'=>'Pantawell IV','div'=>'main','cat'=>'Gastro & Liver Care','form'=>'Injection',
      'comp'=>'Pantoprazole 40 mg (IV injection)',
      'image'=>'',
      'summary'=>'Intravenous pantoprazole for acid-related conditions, including patients who cannot take oral medicines.',
@@ -73,7 +87,7 @@ $products = [
 
     ['id'=>'pantawell-d','name'=>'Pantawell D','div'=>'main','cat'=>'Gastro & Liver Care','form'=>'Tablets',
      'comp'=>'Pantoprazole 40 mg + Domperidone 30 mg',
-     'image'=>'',
+     'image'=>'web/product/new3/PANTAWELL D.jpg',
      'summary'=>'Reduces stomach acid and helps the stomach empty faster, easing bloating, nausea and early fullness.',
      'benefits'=>['Pantoprazole reduces the acid in your stomach, helping with heartburn and irritation caused by acid reflux','Domperidone helps your stomach move food more quickly, which reduces bloating, nausea and feeling full too soon'],
      'uses'=>['GERD (Gastroesophageal Reflux Disease): stomach acid moves up into the esophagus, causing heartburn and discomfort','Gastroparesis: the stomach does not empty properly, leading to nausea and bloating','Erosive esophagitis: inflammation in the esophagus caused by acid','Peptic ulcers: sores in the stomach or intestine made worse by stomach acid']],
@@ -136,7 +150,8 @@ $products = [
      'uses'=>['Infectious diarrhea and dysentery','Amoebic and bacterial intestinal infections','Mixed gastrointestinal infections']],
 
     /* ===================== OPG DIVISION ===================== */
-    ['id'=>'collvit','name'=>'Collvit','div'=>'opg','cat'=>'Heart & Antioxidants','form'=>'Nutritional supplement',
+    // HIDDEN (no image available): no pack photo for Collvit in any folder.
+    ['id'=>'collvit','hidden'=>true,'name'=>'Collvit','div'=>'opg','cat'=>'Heart & Antioxidants','form'=>'Nutritional supplement',
      'comp'=>'Coenzyme Q10 + Lycopene + L-Carnitine + Omega-3 Fatty Acids + L-Arginine + Sodium Selenite',
      'image'=>'',
      'summary'=>'Commonly used for cardiovascular health, antioxidant support and metabolic function.',
@@ -164,7 +179,8 @@ $products = [
      'benefits'=>['SAMe plays a role in the synthesis of neurotransmitters and the regulation of gene expression','Mood and mental health: helps improve depression symptoms','Liver health: promotes liver repair and detoxification','Osteoarthritis: reduces joint pain and inflammation','Cognitive function: may support cognitive health, especially with age'],
      'uses'=>['Depression: to improve mood and emotional well-being','Liver health: to support liver function and repair','Osteoarthritis: to reduce joint pain and inflammation','Cognitive health with age']],
 
-    ['id'=>'tamzil-04','name'=>'Tamzil-0.4','div'=>'opg','cat'=>'Urology','form'=>'Tablets',
+    // HIDDEN (no image available): no pack photo for Tamzil-0.4 in any folder.
+    ['id'=>'tamzil-04','hidden'=>true,'name'=>'Tamzil-0.4','div'=>'opg','cat'=>'Urology','form'=>'Tablets',
      'comp'=>'Tamsulosin HCl 0.4 mg + Dutasteride',
      'image'=>'',
      'summary'=>'A combined tablet used to treat an enlarged prostate.',
@@ -199,9 +215,10 @@ $products = [
      'benefits'=>['Rabeprazole is a proton pump inhibitor (PPI) that works by reducing the amount of acid produced in the stomach'],
      'uses'=>['GERD: stomach acid frequently flows back into the esophagus, causing heartburn, chest pain and difficulty swallowing','Peptic ulcers: ulcers in the stomach or small intestine, often caused by excess acid or H. pylori infection','H. pylori infection: in combination with antibiotics, helps eradicate the bacteria','Zollinger-Ellison syndrome: tumors cause excessive stomach acid production','Erosive esophagitis: inflammation and damage to the esophagus from stomach acid']],
 
-    ['id'=>'rabizem-d','name'=>'Rabizem-D','div'=>'opg','cat'=>'Gastro & Liver Care','form'=>'Tablets',
+    // Renamed per client: Rabizem-D is now Rabizem-DSR (image from new3 folder).
+    ['id'=>'rabizem-d','name'=>'Rabizem-DSR','div'=>'opg','cat'=>'Gastro & Liver Care','form'=>'Tablets',
      'comp'=>'Rabeprazole + Domperidone',
-     'image'=>'',
+     'image'=>'web/product/new3/RABIZEM DSR.jpg',
      'summary'=>'A combination that reduces stomach acid, improves gut motility and prevents nausea.',
      'benefits'=>['Rabeprazole is a proton pump inhibitor (PPI) that reduces stomach acid production','Domperidone is an antiemetic and prokinetic agent that improves gut motility and reduces nausea'],
      'uses'=>['Gastroesophageal Reflux Disease (GERD)','Peptic Ulcer Disease: ulcers in the stomach or duodenum, often linked to H. pylori infection or NSAID use','Zollinger-Ellison syndrome','Gastroparesis: delayed stomach emptying causing nausea, vomiting and fullness','Nausea and vomiting associated with gastrointestinal disorders or medication side effects','Esophagitis: inflammation of the esophagus due to acid reflux']],
@@ -229,28 +246,32 @@ $products = [
      'benefits'=>['Reduction of uremic toxins: minimizes nitrogenous waste in patients with chronic kidney disease (CKD)','Support for low-protein diets: ensures essential amino acid availability while reducing dietary nitrogen load','Improved nutritional status: prevents malnutrition and maintains a positive nitrogen balance','Delayed progression of CKD: may help preserve kidney function and delay the need for dialysis','Enhanced protein utilization: alpha-ketoanalogues are converted into amino acids, minimizing urea formation','Improved quality of life: reduced fatigue and better physical function'],
      'uses'=>['Chronic Kidney Disease (CKD): reduces nitrogen waste, delays dialysis and supports nutrition','End-Stage Renal Disease (ESRD): replenishes nutrients during dialysis','Liver diseases: lowers ammonia levels and supports liver regeneration','Protein-Energy Wasting: prevents muscle wasting','Metabolic disorders such as MSUD and PKU','Diabetes with nephropathy','Surgical recovery: promotes tissue repair','Elderly care: helps prevent sarcopenia','Critical illness: provides essential nutrients in organ dysfunction']],
 
-    ['id'=>'nortiplex','name'=>'Nortiplex','div'=>'opg','cat'=>'Neuro & Pain Care','form'=>'Tablets',
+    // HIDDEN (no image available): no pack photo for Nortiplex in any folder.
+    ['id'=>'nortiplex','hidden'=>true,'name'=>'Nortiplex','div'=>'opg','cat'=>'Neuro & Pain Care','form'=>'Tablets',
      'comp'=>'Pregabalin + Methylcobalamin 1500 mcg + Nortriptyline 10 mg',
      'image'=>'',
      'summary'=>'Used for the management of neuropathic pain and related conditions.',
      'benefits'=>['Pregabalin helps reduce anxiety symptoms and widespread nerve and musculoskeletal pain, and improves sleep quality','Methylcobalamin replenishes Vitamin B12 to support nerve health and red blood cell production','Nortriptyline, a tricyclic antidepressant, helps manage pain-related mood disorders','Addresses nerve-related pain, enhances nerve repair and improves quality of life'],
      'uses'=>['Diabetic neuropathy: nerve damage due to long-term high blood sugar','Post-herpetic neuralgia: persistent nerve pain after shingles','Fibromyalgia','Peripheral neuropathy: nerve damage caused by diabetes, Vitamin B12 deficiency or other factors','Trigeminal neuralgia','Chronic back or neck pain with nerve involvement (radiculopathy)','Sciatica','Carpal tunnel syndrome','Anxiety disorders and depression linked to chronic pain','Sleep problems due to pain-induced insomnia','Vitamin B12 deficiency-associated neuropathy']],
 
-    ['id'=>'prigomax','name'=>'Prigomax','div'=>'opg','cat'=>'Neuro & Pain Care','form'=>'Tablets',
+    // HIDDEN (no image available): no pack photo for Prigomax in any folder.
+    ['id'=>'prigomax','hidden'=>true,'name'=>'Prigomax','div'=>'opg','cat'=>'Neuro & Pain Care','form'=>'Tablets',
      'comp'=>'Pregabalin + Methylcobalamin 750 mcg',
      'image'=>'',
      'summary'=>'Used for nerve pain and Vitamin B12-related nerve health.',
      'benefits'=>['Pregabalin is effective in treating nerve pain caused by diabetes, shingles or spinal cord injuries, and also helps in generalized anxiety disorder','Methylcobalamin is a form of Vitamin B12, essential for nerve function and red blood cell production','Methylcobalamin may help support nerve regeneration and improve nerve health'],
      'uses'=>['Neuropathy: diabetic neuropathy and post-herpetic neuralgia','Neuropathic pain','Generalized Anxiety Disorder (GAD)','Fibromyalgia: muscle and soft tissue pain','Vitamin B12 deficiency: weakness, fatigue and nerve damage','Nerve regeneration support']],
 
-    ['id'=>'hairovit-forte','name'=>'Hairovit Forte','div'=>'opg','cat'=>'Vitamins & Nutrition','form'=>'Tablets',
+    // HIDDEN (no image available): no pack photo for Hairovit Forte in any folder.
+    ['id'=>'hairovit-forte','hidden'=>true,'name'=>'Hairovit Forte','div'=>'opg','cat'=>'Vitamins & Nutrition','form'=>'Tablets',
      'comp'=>'Biotin + Calcium Pantothenate (Vitamin B5) + DL-Methionine + multivitamins and minerals',
      'image'=>'',
      'summary'=>'A hair, skin and nail nutrition formulation with general multivitamin and mineral support.',
      'benefits'=>['Hair health: biotin supports healthy hair growth and helps in hair loss or thinning','Calcium Pantothenate (Vitamin B5) is essential for hair health and may help prevent hair loss','Skin health: biotin and calcium pantothenate promote smoother skin','Nail strength: biotin helps improve nail strength and prevents brittleness','Liver and detoxification: DL-Methionine supports liver function','Metabolism and antioxidant support from multivitamins and minerals'],
      'uses'=>['Biotin deficiency: hair loss, brittle nails and skin rashes','Pantothenic acid (Vitamin B5) deficiency: fatigue, irritability, digestive issues and hair loss','Methionine deficiency: liver problems, skin disorders and muscle weakness','General multivitamin and mineral deficiencies','Hair, skin and nail health']],
 
-    ['id'=>'loroz-10','name'=>'Loroz-10','div'=>'opg','cat'=>'Allergy & Respiratory','form'=>'Tablets',
+    // HIDDEN (no image available): no pack photo for Loroz-10 in any folder.
+    ['id'=>'loroz-10','hidden'=>true,'name'=>'Loroz-10','div'=>'opg','cat'=>'Allergy & Respiratory','form'=>'Tablets',
      'comp'=>'Loratadine 10 mg',
      'image'=>'',
      'summary'=>'A second-generation antihistamine that relieves allergy symptoms without causing significant drowsiness.',
@@ -259,12 +280,13 @@ $products = [
 
     ['id'=>'azitrip-forte','name'=>'Azitrip-Forte','div'=>'opg','cat'=>'Neuro & Pain Care','form'=>'Enzyme therapy',
      'comp'=>'Proteolytic enzyme combination',
-     'image'=>'',
+     'image'=>'web/product/new3/AZITRIP FORTE.jpg',
      'summary'=>'An enzyme combination used to reduce swelling and inflammation and to support healing.',
      'benefits'=>['Reduces edema, pain and inflammation, helping faster recovery after surgery','Promotes quicker wound healing by removing dead tissue and enhancing tissue repair','Helps liquefy mucus and reduce inflammation in the airways'],
      'uses'=>['Post-operative edema and inflammation: after general, orthopedic, dental or eye surgeries','Traumatic injuries: fractures, sprains, strains, sports injuries and hematomas','Wound healing','ENT disorders: tonsillitis, sinusitis and pharyngitis','Dental conditions: post-extraction swelling and oral infections','Respiratory conditions: bronchitis and emphysema','Ophthalmic conditions: post-cataract surgery swelling and traumatic eye injuries (supportive therapy)','Arthritis and joint inflammation']],
 
     // OPG Sl. 17 has no brand name in the spreadsheet. Add the name, then remove 'hidden'.
+    // HIDDEN (no image available): no pack photo for this product (name still to be confirmed).
     ['id'=>'opg-17','hidden'=>true,'name'=>'NAME TO BE CONFIRMED','div'=>'opg','cat'=>'Anti-Infectives','form'=>'Oral gel / throat care',
      'comp'=>'Choline Salicylate + Lignocaine Hydrochloride + Benzalkonium Chloride','image'=>'',
      'summary'=>'For pain, inflammation and infection in the mouth, gums and throat.',
@@ -279,7 +301,8 @@ $products = [
      'benefits'=>['Stroke recovery: helps repair brain cells and improve function after a stroke','Memory and learning: boosts memory, recall and learning ability','Focus and concentration: enhances attention','Brain injury recovery: aids healing after head injuries','Mental fatigue: reduces brain fog and improves mental clarity','Better blood flow in the brain: increases oxygen supply to brain cells','Eye health: protects optic nerves'],
      'uses'=>['Stroke (ischemic and hemorrhagic): brain recovery, speech, memory and movement','Traumatic Brain Injury (TBI) and concussion','Dementia and Alzheimer’s disease: slows down memory loss and cognitive decline','Parkinson’s disease: supports movement control','ADHD: enhances focus and attention','Depression and anxiety: supports mood and emotional balance','Age-related cognitive decline (mild cognitive impairment)','Glaucoma and optic neuropathy: protects the optic nerve','Vertigo and dizziness']],
 
-    ['id'=>'citicure','name'=>'Citicure','div'=>'usr','cat'=>'Neuro & Pain Care','form'=>'Tablets',
+    // HIDDEN (no image available): no pack photo for Citicure in any folder.
+    ['id'=>'citicure','hidden'=>true,'name'=>'Citicure','div'=>'usr','cat'=>'Neuro & Pain Care','form'=>'Tablets',
      'comp'=>'Neuro-care formulation',
      'image'=>'',
      'summary'=>'Helps repair brain cells and supports memory, learning and recovery after stroke or head injury.',
@@ -288,7 +311,7 @@ $products = [
 
     ['id'=>'evocod','name'=>'Evocod','div'=>'usr','cat'=>'Heart & Antioxidants','form'=>'Softgel capsules',
      'comp'=>'Vitamin E + Cod Liver Oil',
-     'image'=>'',
+     'image'=>'web/product/new3/EVOCOD.jpg',
      'summary'=>'Combines the antioxidant action of Vitamin E with the omega-3 fatty acids and Vitamin D of cod liver oil.',
      'benefits'=>['Boosts immunity: Vitamin E protects cells and supports the immune system','Healthy skin and eyes: Vitamin E keeps skin healthy and helps protect against eye problems like cataracts','Heart health: cod liver oil omega-3s support healthy cholesterol levels and reduce inflammation','Brain health: Vitamin E protects brain cells, and omega-3s improve brain function','Bone and joint health: cod liver oil is rich in Vitamin D, which supports strong bones and reduces joint pain','Reduces inflammation, useful in conditions like arthritis'],
      'uses'=>['Arthritis and joint pain: cod liver oil reduces joint inflammation','Skin conditions: eczema, acne and sun damage','Eye disorders: age-related problems such as cataracts and macular degeneration','Cognitive decline','Bone diseases such as osteoporosis','Immune deficiency, especially in older adults']],
@@ -300,7 +323,8 @@ $products = [
      'benefits'=>['Improves brain function: enhances memory, attention and learning','Protects nerve cells: guards against damage from injury or neurodegeneration','Aids stroke recovery: helps regain motor and cognitive functions','Supports nerve regeneration: encourages healing of damaged nerve cells','Boosts neuroplasticity: enhances the brain’s ability to form new neural connections'],
      'uses'=>['Cognitive impairment: Alzheimer’s disease, mild cognitive impairment and other neurodegenerative disorders','Stroke recovery: post-stroke rehabilitation of motor and cognitive functions','Neurodegenerative diseases such as Parkinson’s disease','Traumatic Brain Injury (TBI): supports neuronal recovery']],
 
-    ['id'=>'carnicure','name'=>'Carnicure','div'=>'usr','cat'=>'Vitamins & Nutrition','form'=>'Supplement',
+    // HIDDEN per client: Carnicure is the same as Carnicure Plus (listed below with its image).
+    ['id'=>'carnicure','hidden'=>true,'name'=>'Carnicure','div'=>'usr','cat'=>'Vitamins & Nutrition','form'=>'Supplement',
      'comp'=>'Levocarnitine (L-Carnitine)',
      'image'=>'',
      'summary'=>'Supports energy production, heart function and fat metabolism.',
@@ -349,14 +373,17 @@ $products = [
      'benefits'=>['L-Carnitine helps improve energy production by aiding the transport of fatty acids','Methylcobalamin (a form of Vitamin B12) helps treat nerve damage and B12 deficiency','Folic acid supports red blood cell production and helps prevent folate deficiency anemia'],
      'uses'=>['Fatigue and low energy','Neuropathy (nerve damage), particularly diabetic neuropathy','Vitamin B12 deficiency: weakness, fatigue and numbness','Folic acid deficiency and megaloblastic anemia','Pregnancy: prevention of neural tube defects','Support for metabolic disorders affecting fat metabolism']],
 
-    ['id'=>'usgaba-pg','name'=>'Usgaba PG','div'=>'usr','cat'=>'Neuro & Pain Care','form'=>'Tablets',
+    // HIDDEN (no image available): no pack photo for Usgaba PG in any folder.
+    ['id'=>'usgaba-pg','hidden'=>true,'name'=>'Usgaba PG','div'=>'usr','cat'=>'Neuro & Pain Care','form'=>'Tablets',
      'comp'=>'Pregabalin + Nortriptyline',
      'image'=>'',
      'summary'=>'Used for nerve pain, anxiety and depression, with improved sleep quality.',
      'benefits'=>['Pregabalin calms overactive nerve signals','Nortriptyline increases certain neurotransmitters in the brain to improve mood and pain perception','Can also improve sleep quality in pain-related sleep disturbances'],
      'uses'=>['Neuropathic pain: diabetic neuropathy, post-herpetic neuralgia and trigeminal neuralgia','Fibromyalgia: reduces pain and improves sleep quality','Generalized Anxiety Disorder (GAD)','Depression','Chronic pain linked to mood disorders or insomnia']],
 
-    ['id'=>'rifazin-m','name'=>'Rifazin M','div'=>'usr','cat'=>'Gastro & Liver Care','form'=>'Tablets',
+    // HIDDEN (no image available): no pack photo for Rifazin M (Rifaximin + Metronidazole) in any folder.
+    // Do not use the Rifazan-400 photo here, it is Rifaximin only.
+    ['id'=>'rifazin-m','hidden'=>true,'name'=>'Rifazin M','div'=>'usr','cat'=>'Gastro & Liver Care','form'=>'Tablets',
      'comp'=>'Rifaximin + Metronidazole',
      'image'=>'',
      'summary'=>'Used for intestinal infections, diarrhea and abdominal infections caused by specific bacteria and protozoa.',
@@ -407,6 +434,8 @@ foreach ($products as $idx => &$p) {
 }
 unset($p);
 
+// Hidden products are removed here, so they never appear in lists, related
+// products, or open as a page (get_product() returns null -> 404).
 $products = array_values(array_filter($products, function ($p) { return empty($p['hidden']); }));
 
 function product_url($p) {
@@ -419,4 +448,19 @@ function get_product($slug) {
         if ($p['id'] === $slug) { return $p; }
     }
     return null;
+}
+
+/* ---------- SEO helpers ---------- */
+
+// Full web address of a product page, e.g. https://www.domain.com/usilo-d.php
+function product_full_url($p) {
+    global $site_url;
+    return $site_url . product_url($p);
+}
+
+// Full web address of a product image, with spaces and special characters encoded
+function product_image_url($p) {
+    global $site_url;
+    $parts = array_map('rawurlencode', explode('/', $p['image']));
+    return $site_url . implode('/', $parts);
 }

@@ -4,6 +4,16 @@
 $site_name  = 'Agastya Research';
 $page_title = isset($page_title) ? $page_title . ' | ' . $site_name : $site_name . ' | Quality Pharmaceutical Products Since 2008';
 $meta_desc  = isset($meta_desc) ? $meta_desc : 'Agastya Research Health Products - quality-driven pharmaceutical company serving India since 2008. Head office in Delhi, regional office and depot in Guwahati. Explore our Main, OPG and USR divisions.';
+
+// Site address: set by products-data.php on product pages; worked out here for all other pages.
+if (!isset($site_url)) {
+    $h = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
+    $site_url = (strpos($h, 'localhost') !== false || strpos($h, '127.0.0.1') !== false)
+        ? 'http://' . $h . '/'
+        : 'https://www.YOURDOMAIN.com/';   // <-- CHANGE THIS (same domain as in products-data.php)
+}
+// Image used when a page does not set its own (put a logo image of about 1200x630 at this path)
+$og_image = isset($og_image) ? $og_image : $site_url . 'web/og-default.jpg';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,6 +24,22 @@ $meta_desc  = isset($meta_desc) ? $meta_desc : 'Agastya Research Health Products
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 	<meta name="description" content="<?php echo htmlspecialchars($meta_desc); ?>">
+
+	<!-- Canonical, Open Graph (link previews) and structured data -->
+	<?php if (!empty($canonical)): ?>
+	<link rel="canonical" href="<?php echo htmlspecialchars($canonical); ?>">
+	<meta property="og:url" content="<?php echo htmlspecialchars($canonical); ?>">
+	<?php endif; ?>
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="<?php echo htmlspecialchars($site_name); ?>">
+	<meta property="og:title" content="<?php echo htmlspecialchars($page_title); ?>">
+	<meta property="og:description" content="<?php echo htmlspecialchars($meta_desc); ?>">
+	<meta property="og:image" content="<?php echo htmlspecialchars($og_image); ?>">
+	<meta name="twitter:card" content="summary_large_image">
+	<?php if (!empty($json_ld)): ?>
+	<script type="application/ld+json"><?php echo $json_ld; ?></script>
+	<?php endif; ?>
+
 	<meta name="keywords" content="Agastya Research, pharmaceutical company, pharma distributor Guwahati, pharma company Delhi, medicines, Main Division, OPG Division, USR Division">
 	<meta name="author" content="Agastya Research">
 	<!-- Page Title -->

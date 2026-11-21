@@ -33,6 +33,25 @@ $divTitle   = $divisions[$p['div']]['title'];
 $page_title = !empty($p['seo_title']) ? $p['seo_title'] : $p['name'] . ' - ' . $p['comp'];
 $meta_desc  = !empty($p['seo_desc'])  ? $p['seo_desc']  : $p['summary'] . ' ' . $divTitle . ', Agastya Research.';
 
+// Canonical address, link-preview image and structured data (read by header.php)
+$canonical = product_full_url($p);
+$og_image  = product_image_url($p);
+
+$json_ld = json_encode([
+    '@context'    => 'https://schema.org',
+    '@type'       => 'Product',
+    'name'        => $p['name'],
+    'description' => $p['summary'],
+    'category'    => $p['cat'],
+    'image'       => $og_image,
+    'url'         => $canonical,
+    'brand'       => ['@type' => 'Brand', 'name' => 'Agastya Research'],
+    'additionalProperty' => [
+        ['@type' => 'PropertyValue', 'name' => 'Composition', 'value' => $p['comp']],
+        ['@type' => 'PropertyValue', 'name' => 'Form',        'value' => $p['form']],
+    ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+
 /* ---------- Related products (same division, else same category) ---------- */
 $related = array_values(array_filter($products, function ($x) use ($p) {
     return $x['id'] !== $p['id'] && ($x['div'] === $p['div'] || $x['cat'] === $p['cat']);
