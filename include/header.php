@@ -85,7 +85,7 @@ $og_image = isset($og_image) ? $og_image : $site_url . 'web/og-default.jpg';
 				<div class="container">
 					<!-- Logo Start -->
 					<a class="navbar-brand" href="index.php">
-						<img src="web/logo.png" alt="Agastya Research" style="max-height:56px; width:auto;">
+						<img src="web/logo.png" alt="Agastya Research" style="max-height:70px; width:auto;">
 					</a>
 					<!-- Logo End -->
 
